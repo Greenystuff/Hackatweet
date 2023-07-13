@@ -15,14 +15,18 @@ function Tweet() {
   return (
     <div className={styles.tweetContainer}>
       <Image src='/images/logo_twitter.png' width={40} height={30} alt='Logo Twitter'></Image>
-      <div className={styles.logoutDiv}>
-        <Image src='/images/avatar.png' width={40} height={40} alt='Avatar'></Image>
-        <div className={styles.idLogout}>
-          <span>{user.username}</span>
-          <span onClick={() => logoutClicked()} className={styles.logoutBtn}>Logout</span>
+      <div className={styles.userContainer}>
+        <div className={styles.logoutDiv}>
+          <div className={styles.userAvatar}>
+            <Image src='/images/avatar.png' width={40} height={40} alt='Avatar'></Image>
+          </div>
+          <div className={styles.idLogout}>
+            <span className={styles.firstName}>{user.firstname}</span>
+            <span className={styles.userName}>#{user.username}</span>
+          </div>
         </div>
+        <span onClick={() => logoutClicked()} className={styles.logoutBtn}>Logout</span>
       </div>
-
     </div>
   );
 }

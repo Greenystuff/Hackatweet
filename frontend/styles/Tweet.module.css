@@ -3,25 +3,58 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  height: 90%;
+  height: 100%;
   width: 100%;
-  margin-left: 20px;
-  margin-top: 20px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 
 .logoutDiv {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .idLogout {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   color: white;
   margin-left: 10px;
+  height: fit-content;
+}
+
+.userAvatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .logoutBtn {
   cursor: pointer;
+  font-family: Mont-Heavy;
+  border: 1px grey solid;
+  background-color: #161F2D;
+  color: #35A6FF;
+  border-radius: 15px;
+  font-size: 12px;
+  padding: 8px;
+  width: 130px;
+}
+
+.userName {
+  padding: 3px;
+  font-style: italic;
+  color: grey;
+}
+
+.firstName {
+  padding: 3px;
+}
+
+.userContainer {
+  height: fit-content;
 }

@@ -52,19 +52,20 @@ router.post('/login', (req, res) => {
   }
 
   User.findOne({ username: req.body.username })
-    .then(data => {
-      if (!data) {
+    .then(userFound => {
+      if (!userFound) {
         res.json({
           result: false,
           error: "User does\'t exist"
         })
       } else {
-        if (bcrypt.compareSync(req.body.password, data.hash)) {
+        if (bcrypt.compareSync(req.body.password, userFound.hash)) {
           const token = uid2(32);
           User.updateOne({ username: req.body.username }, { token }).then(data => {
             res.json({
               result: true,
-              username: req.body.username,
+              firstname: userFound.firstname,
+              username: userFound.username,
               token
             });
           })

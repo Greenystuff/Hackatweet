@@ -11,8 +11,9 @@ function ModalPopup(props) {
   const [firstname, setFirstname] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorTxt, setErrorTxt] = useState('');
 
-  let btnTxt = 'Sign up'
+  let btnTxt = 'Sign up';
   if (props.isSignUp) {
 
   } else {
@@ -39,7 +40,7 @@ function ModalPopup(props) {
             setPassword('')
             props.closeModal();
           } else {
-            console.log(data.error)
+            setErrorTxt(data.error);
           }
 
         })
@@ -56,21 +57,17 @@ function ModalPopup(props) {
         .then(resp => resp.json())
         .then(data => {
           if (data.result) {
-            console.log("Voilà tes data enculé !", data)
             dispatch(addUserToStore(data))
             setFirstname('');
             setUsername('');
             setPassword('')
             props.closeModal();
           } else {
-            console.log(data.error)
+            setErrorTxt(data.error);
           }
         })
     }
   }
-
-  console.log(user)
-
 
   return (
     <div>
@@ -87,10 +84,11 @@ function ModalPopup(props) {
         {props.isSignUp ? <h2 className={styles.title}>Create your Hackatweet account</h2> : <h2 className={styles.title}>Login to your Hackatweet account</h2>}
 
         <div className={styles.form}>
-          {props.isSignUp ? <input value={firstname} onChange={(e) => setFirstname(e.target.value)} className={styles.signUpInput} placeholder='Firstname' /> : <></>}
-          <input value={username} onChange={(e) => setUsername(e.target.value)} className={styles.signUpInput} placeholder='Username' />
-          <input type='password' value={password} onChange={(e) => setPassword(e.target.value)} className={styles.signUpInput} placeholder='Password' />
+          {props.isSignUp ? <input value={firstname} onChange={(e) => { setFirstname(e.target.value); setErrorTxt('') }} className={styles.signUpInput} placeholder='Firstname' /> : <></>}
+          <input value={username} onChange={(e) => { setUsername(e.target.value); setErrorTxt('') }} className={styles.signUpInput} placeholder='Username' />
+          <input type='password' value={password} onChange={(e) => { setPassword(e.target.value); setErrorTxt('') }} className={styles.signUpInput} placeholder='Password' />
           <button onClick={() => btnClicked()} className={styles.validateBtn}>{btnTxt}</button>
+          <span className={styles.errorTxt}>{errorTxt}</span>
         </div>
       </Modal>
     </div>

@@ -60,3 +60,8 @@
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
+.errorTxt {
+  margin-top: 10px;
+  text-align: center;
+}

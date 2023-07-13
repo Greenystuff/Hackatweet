@@ -1,0 +1,27 @@
+.tweetContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 90%;
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+
+.logoutDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+.idLogout {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-left: 10px;
+}
+
+.logoutBtn {
+  cursor: pointer;
+}

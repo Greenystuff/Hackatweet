@@ -56,7 +56,7 @@ router.post('/login', (req, res) => {
       if (!data) {
         res.json({
           result: false,
-          error: "User does\"t exist"
+          error: "User does\'t exist"
         })
       } else {
         if (bcrypt.compareSync(req.body.password, data.hash)) {

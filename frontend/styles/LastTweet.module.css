@@ -1,0 +1,43 @@
+.lastTweetsContainer {
+  padding-left: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.tweetInput {
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  padding-bottom: 15px;
+  border: 0px;
+  border-bottom: 1px solid grey;
+  width: 80%;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.validateBtn {
+  font-family: Mont-Heavy;
+  background-color: #35A6FF;
+  color: white;
+  border: 0px;
+  border-radius: 15px;
+  font-size: 12px;
+  padding: 8px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.lengthTxt {
+  margin-right: 10px;
+}

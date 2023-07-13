@@ -1,0 +1,62 @@
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #243349;
+  height: 70%;
+  width: 50%;
+  margin-right: -50%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+.title {
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.closeBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.closeBtn {
+  color: white;
+  font-weight: bold;
+  margin-right: 20px;
+  margin-top: -30px;
+  cursor: pointer;
+}
+
+.signUpInput {
+  background-color: transparent;
+  border: 1px grey solid;
+  border-radius: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  color: white;
+}
+
+.validateBtn {
+  font-family: Mont-Heavy;
+  border: 0px;
+  background-color: white;
+  border-radius: 15px;
+  font-size: 12px;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

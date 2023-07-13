@@ -22,7 +22,7 @@ function Tweet() {
           </div>
           <div className={styles.idLogout}>
             <span className={styles.firstName}>{user.firstname}</span>
-            <span className={styles.userName}>#{user.username}</span>
+            <span className={styles.userName}>@{user.username}</span>
           </div>
         </div>
         <span onClick={() => logoutClicked()} className={styles.logoutBtn}>Logout</span>

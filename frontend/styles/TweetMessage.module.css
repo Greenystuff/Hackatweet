@@ -1,0 +1,45 @@
+.tweetContainer {
+  border-top: 1px grey solid;
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+}
+
+.userContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+}
+
+.userAvatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.firstName {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.userName {
+  color: grey;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.contentContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.iconsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.likesContainer {
+  margin-right: 10px;
+}

@@ -12,15 +12,16 @@ router.post('/new', (req, res) => {
     return;
   }
   User.findOne({ username: req.body.username })
-    .then(data => {
-      if (data) {
+    .then(userFound => {
+      if (userFound) {
         const newTweet = new Tweet({
-          user: data._id,
+          user: userFound._id,
           content: req.body.content,
           isliked: false,
           date: new Date()
         })
         newTweet.save().then(data => {
+          data.user = userFound;
           res.json({
             result: true,
             data: data

@@ -20,6 +20,14 @@ function ModalPopup(props) {
     btnTxt = 'Login'
   }
 
+  const resetModal = () => {
+    props.closeModal();
+    setFirstname('');
+    setUsername('');
+    setPassword('')
+
+  }
+
   const btnClicked = () => {
     if (props.isSignUp) {
       fetch('http://localhost:3000/users/new', {
@@ -32,7 +40,6 @@ function ModalPopup(props) {
         })
       }).then(resp => resp.json())
         .then(data => {
-
           if (data.result) {
             dispatch(addUserToStore(data))
             setFirstname('');
@@ -73,12 +80,12 @@ function ModalPopup(props) {
     <div>
       <Modal
         isOpen={props.modalIsOpen}
-        onRequestClose={props.closeModal}
+        onRequestClose={resetModal}
         className={styles.modalContainer}
-        contentLabel="Example Modal"
+        contentLabel="log Modal"
       >
         <div className={styles.closeBtnContainer}>
-          <span className={styles.closeBtn} onClick={props.closeModal}>X</span>
+          <span className={styles.closeBtn} onClick={() => resetModal()}>X</span>
         </div>
         <Image src='/images/logo_twitter.png' width={40} height={30} alt='Logo Twitter'></Image>
         {props.isSignUp ? <h2 className={styles.title}>Create your Hackatweet account</h2> : <h2 className={styles.title}>Login to your Hackatweet account</h2>}

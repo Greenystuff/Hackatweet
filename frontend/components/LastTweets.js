@@ -28,10 +28,14 @@ function LastTweets() {
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
     let liked = false;
+    let isOwner = false;
     if (user.likedTweets.includes(allTweets[i]._id)) {
       liked = true;
     }
-    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
+    if (allTweets[i].user.username === user.username) {
+      isOwner = true
+    }
+    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} isOwner={isOwner} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
 
   const sendTweet = () => {
@@ -48,9 +52,12 @@ function LastTweets() {
           .then(resp => resp.json())
           .then(data => {
             setAllTweets(data.allTweets)
+            setNewTweet('')
           })
       })
   }
+
+
 
   return (
     <div>

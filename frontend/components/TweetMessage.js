@@ -50,11 +50,31 @@ function TweetMessage(props) {
     }
   }
 
+  const removeTweet = () => {
+    fetch('https://hackatweet-five.vercel.app/tweets/removeTweet', {
+      method: 'DELETE',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        id: props.id
+      })
+    }).then(resp => resp.json())
+      .then(data => {
+        console.log(data.result)
+      })
+  }
+
   if (isLiked) {
     customStyle = { color: "red" }
     props.likeNumber + 1
   } else {
     props.likeNumber - 1
+  }
+
+  const trash = [];
+  if (props.isOwner) {
+    trash.push(<div className={styles.trashContainer}>
+      <FontAwesomeIcon onClick={() => removeTweet()} icon={faTrashCan} style={{ color: "#ffffff", }} />
+    </div>)
   }
 
   return (
@@ -76,9 +96,7 @@ function TweetMessage(props) {
           <FontAwesomeIcon onClick={() => likeClicked()} icon={faHeart} style={customStyle} />
           <span>{likeNumber}</span>
         </div>
-        <div className={styles.trashContainer}>
-          <FontAwesomeIcon icon={faTrashCan} style={{ color: "#ffffff", }} />
-        </div>
+        {trash}
       </div>
     </div>
   );

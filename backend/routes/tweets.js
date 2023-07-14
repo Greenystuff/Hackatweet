@@ -17,7 +17,8 @@ router.post('/new', (req, res) => {
         const newTweet = new Tweet({
           user: userFound._id,
           content: req.body.content,
-          isliked: false,
+          isLiked: false,
+          likeNumber: 0,
           date: new Date()
         })
         newTweet.save().then(data => {
@@ -34,10 +35,15 @@ router.post('/new', (req, res) => {
         })
       }
     })
+})
 
-
-
-
+router.get('/all', (req, res) => {
+  Tweet.find().populate('user').then(allTweets => {
+    res.json({
+      result: true,
+      allTweets
+    })
+  })
 })
 
 module.exports = router;

@@ -34,6 +34,7 @@ function TweetMessage(props) {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         id: props.id,
+        username: user.username,
         isLiked: !isLiked
       })
     }).then(resp => resp.json())

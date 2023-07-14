@@ -29,6 +29,7 @@ function LastTweets() {
     if (user.likedTweets.includes(allTweets[i]._id)) {
       liked = true;
     }
+    console.log(`Tweet ${i} liké : `, liked)
     tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
 

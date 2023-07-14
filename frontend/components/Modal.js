@@ -30,7 +30,7 @@ function ModalPopup(props) {
 
   const btnClicked = () => {
     if (props.isSignUp) {
-      fetch('http://localhost:3000/users/new', {
+      fetch('https://hackatweet-five.vercel.app/users/new', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -53,7 +53,7 @@ function ModalPopup(props) {
         })
     } else {
       btnTxt = 'Login'
-      fetch('http://localhost:3000/users/login', {
+      fetch('https://hackatweet-five.vercel.app/users/login', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

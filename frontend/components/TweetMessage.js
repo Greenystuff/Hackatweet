@@ -31,7 +31,7 @@ function TweetMessage(props) {
   let customStyle = { color: "#ffffff" }
   const likeClicked = () => {
     setIsLiked(!isLiked)
-    fetch('http://localhost:3000/tweets/like', {
+    fetch('https://hackatweet-five.vercel.app/tweets/like', {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({

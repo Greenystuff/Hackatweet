@@ -13,7 +13,7 @@ function LastTweets() {
   const [newTweet, setNewTweet] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3000/tweets/all')
+    fetch('https://hackatweet-five.vercel.app/tweets/all')
       .then(resp => resp.json())
       .then(data => {
         setAllTweets(data.allTweets)

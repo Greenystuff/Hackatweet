@@ -37,6 +37,26 @@ function LastTweets() {
     tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
 
+  console.log("Est ce que ça existe ? " + user._id)
+
+  const sendTweet = () => {
+    fetch('https://hackatweet-five.vercel.app/tweets/new', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        user: user._id,
+        content: newTweet
+      }).then(resp => resp.json())
+        .then(data => {
+          fetch('https://hackatweet-five.vercel.app/tweets/all')
+            .then(resp => resp.json())
+            .then(data => {
+              setAllTweets(data.allTweets)
+            })
+        })
+    })
+  }
+
   return (
     <div>
       <h2 className={styles.title}>Home</h2>
@@ -45,7 +65,7 @@ function LastTweets() {
       </div>
       <div className={styles.btnContainer}>
         <span className={styles.lengthTxt}>{charLength}/280</span>
-        <button className={styles.validateBtn}>Tweet</button>
+        <button onClick={() => sendTweet()} className={styles.validateBtn}>Tweet</button>
       </div>
       {tweetMessages}
     </div>

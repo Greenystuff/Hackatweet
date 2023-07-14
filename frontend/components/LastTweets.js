@@ -17,7 +17,11 @@ function LastTweets() {
       .then(resp => resp.json())
       .then(data => {
         setAllTweets(data.allTweets)
-        dispatch(setLikedTweet(data.allTweets[0].user.likedTweets))
+      })
+    fetch('https://hackatweet-five.vercel.app/users/myLikedTweets')
+      .then(resp => resp.json())
+      .then(data => {
+        dispatch(setLikedTweet(data.liked))
       })
   }, [])
 

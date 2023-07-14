@@ -76,4 +76,14 @@ router.post('/login', (req, res) => {
     })
 })
 
+router.get('/myLikedTweets', (req, res) => {
+  User.findById(req.body.id)
+    .then(user => {
+      res.json({
+        result: true,
+        liked: user.likedTweets
+      })
+    })
+})
+
 module.exports = router;

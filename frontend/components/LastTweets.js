@@ -25,19 +25,14 @@ function LastTweets() {
       })
   }, [])
 
-  console.log('User liked tweets : ', user.likedTweets)
-
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
     let liked = false;
     if (user.likedTweets.includes(allTweets[i]._id)) {
       liked = true;
     }
-    console.log(`Tweet ${i} liké : `, liked)
     tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
-
-  console.log("Est ce que ça existe ? " + user._id)
 
   const sendTweet = () => {
     fetch('https://hackatweet-five.vercel.app/tweets/new', {
@@ -46,15 +41,15 @@ function LastTweets() {
       body: JSON.stringify({
         username: user.username,
         content: newTweet
-      }).then(resp => resp.json())
-        .then(data => {
-          fetch('https://hackatweet-five.vercel.app/tweets/all')
-            .then(resp => resp.json())
-            .then(data => {
-              setAllTweets(data.allTweets)
-            })
-        })
-    })
+      })
+    }).then(resp => resp.json())
+      .then(data => {
+        fetch('https://hackatweet-five.vercel.app/tweets/all')
+          .then(resp => resp.json())
+          .then(data => {
+            setAllTweets(data.allTweets)
+          })
+      })
   }
 
   return (

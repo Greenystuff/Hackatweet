@@ -5,20 +5,15 @@ import TweetMessage from './TweetMessage';
 import { removeLikedTweet, addLikedTweet, setLikedTweet } from '../reducers/users'
 import FETCH_URL from '../config'
 
-function LastTweets() {
+function LastTweets(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.value)
 
   const [charLength, setCharLenght] = useState(0)
-  const [allTweets, setAllTweets] = useState([])
   const [newTweet, setNewTweet] = useState('')
 
   useEffect(() => {
-    fetch(`${FETCH_URL}/tweets/all`)
-      .then(resp => resp.json())
-      .then(data => {
-        setAllTweets(data.allTweets)
-      })
+
     fetch(`${FETCH_URL}/users/myLikedTweets`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -39,26 +34,26 @@ function LastTweets() {
         id: tweetId
       })
     }).then(resp => resp.json())
-      .then(data => {
+      .then(() => {
         fetch(`${FETCH_URL}/tweets/all`)
           .then(resp => resp.json())
           .then(data => {
-            setAllTweets(data.allTweets)
+            props.setAllTweets(data.allTweets)
           })
       })
   }
 
   const tweetMessages = [];
-  for (let i = 0; i < allTweets.length; i++) {
+  for (let i = 0; i < props.allTweets.length; i++) {
     let liked = false;
     let isOwner = false;
-    if (user.likedTweets.includes(allTweets[i]._id)) {
+    if (user.likedTweets.includes(props.allTweets[i]._id)) {
       liked = true;
     }
-    if (allTweets[i].user.username === user.username) {
+    if (props.allTweets[i].user.username === user.username) {
       isOwner = true
     }
-    tweetMessages.push(<TweetMessage removeTweet={removeTweet} id={allTweets[i]._id} date={allTweets[i].date} isOwner={isOwner} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
+    tweetMessages.push(<TweetMessage removeTweet={removeTweet} id={props.allTweets[i]._id} date={props.allTweets[i].date} isOwner={isOwner} likeNumber={props.allTweets[i].likeNumber} content={props.allTweets[i].content} isLiked={liked} user={props.allTweets[i].user} key={i} />)
   }
 
   const sendTweet = () => {
@@ -70,11 +65,11 @@ function LastTweets() {
         content: newTweet
       })
     }).then(resp => resp.json())
-      .then(data => {
+      .then(() => {
         fetch(`${FETCH_URL}/tweets/all`)
           .then(resp => resp.json())
           .then(data => {
-            setAllTweets(data.allTweets)
+            props.setAllTweets(data.allTweets)
             setNewTweet('')
           })
       })

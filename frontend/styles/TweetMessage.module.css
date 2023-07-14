@@ -41,5 +41,10 @@
 }
 
 .likesContainer {
+  cursor: pointer;
   margin-right: 10px;
+}
+
+.trashContainer {
+  cursor: pointer;
 }

@@ -46,19 +46,21 @@ router.get('/all', (req, res) => {
   })
 })
 
-router.patch('/likeNumber', (req, res) => {
+router.patch('/like', (req, res) => {
   Tweet.findById(req.body.id).then(tweet => {
     let newLikedNumber = 0
-    if (req.body.isLike){
-      newLikedNumber = tweet.likeNumber + 1 
+    console.log(req.body)
+    if (req.body.isLiked) {
+      newLikedNumber = tweet.likeNumber + 1
     } else {
       newLikedNumber = tweet.likeNumber - 1
     }
-    Tweet.updateOne({_id : req.body.id}, {likeNumber : newLikedNumber }).then(data => {
+    Tweet.updateOne({ _id: req.body.id }, { likeNumber: newLikedNumber, isLiked: req.body.isLiked }).then(data => {
       res.json({
-        result: true
+        result: true,
+        likeNumber: newLikedNumber
       })
-    }) 
+    })
   })
 })
 

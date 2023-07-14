@@ -22,7 +22,7 @@ function LastTweets() {
 
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
-    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} content={allTweets[i].content} isLiked={allTweets[i].isLiked} user={allTweets[i].user} key={i} />)
+    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={allTweets[i].isLiked} user={allTweets[i].user} key={i} />)
   }
 
   return (

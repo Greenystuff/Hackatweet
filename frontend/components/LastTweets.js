@@ -44,7 +44,7 @@ function LastTweets() {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        user: user._id,
+        username: user.username,
         content: newTweet
       }).then(resp => resp.json())
         .then(data => {

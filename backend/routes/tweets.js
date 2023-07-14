@@ -84,7 +84,7 @@ router.patch('/like', (req, res) => {
     })
 
   router.delete('/removeTweet', (req, res) => {
-    Tweet.delete({ _id: req.body.id })
+    Tweet.deleteOne({ _id: req.body.id })
       .then(data => {
         res.json({
           result: true,

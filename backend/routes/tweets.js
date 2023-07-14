@@ -82,20 +82,18 @@ router.patch('/like', (req, res) => {
           }))
       }
     })
+})
 
-  router.delete('/removeTweet', (req, res) => {
-    console.log('ça marche !')
-    Tweet.deleteOne({ _id: req.body.id })
-      .then(data => {
-        res.json({
-          result: true,
-          infos: data
-        })
-        console.log(data)
+router.delete('/removeTweet', (req, res) => {
+  console.log('ça marche !')
+  Tweet.deleteOne({ _id: req.body.id })
+    .then(data => {
+      res.json({
+        result: true,
+        infos: data
       })
-  })
-
-
+      console.log(data)
+    })
 })
 
 module.exports = router;

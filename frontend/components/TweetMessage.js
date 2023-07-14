@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { removeLikedTweet, addLikedTweet } from '../reducers/users'
+import FETCH_URL from '../config';
 
 function TweetMessage(props) {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ function TweetMessage(props) {
   let customStyle = { color: "#ffffff" }
   const likeClicked = () => {
     setIsLiked(!isLiked)
-    fetch('https://hackatweet-five.vercel.app/tweets/like', {
+    fetch(`${FETCH_URL}/tweets/like`, {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -50,32 +51,16 @@ function TweetMessage(props) {
     }
   }
 
-  const removeTweet = () => {
-    fetch('https://hackatweet-five.vercel.app/tweets/removeTweet', {
-      method: 'DELETE',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        id: props.id
-      })
-    }).then(resp => resp.json())
-      .then(data => {
-        console.log(data.result)
-      })
-  }
-
   if (isLiked) {
     customStyle = { color: "red" }
     props.likeNumber + 1
   } else {
     props.likeNumber - 1
   }
-
-  const trash = [];
-  if (props.isOwner) {
-    trash.push(<div className={styles.trashContainer}>
-      <FontAwesomeIcon onClick={() => removeTweet()} icon={faTrashCan} style={{ color: "#ffffff", }} />
-    </div>)
-  }
+  console.log(props)
+  const trash = props.isOwner ? <div className={styles.trashContainer}>
+    <FontAwesomeIcon onClick={() => props.removeTweet(props.id)} icon={faTrashCan} style={{ color: "#ffffff", }} />
+  </div> : <></>
 
   return (
     <div className={styles.tweetContainer}>

@@ -76,8 +76,8 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.get('/myLikedTweets', (req, res) => {
-  User.findById(req.body.id)
+router.post('/myLikedTweets', (req, res) => {
+  User.findOne({ username: req.body.username })
     .then(user => {
       res.json({
         result: true,

@@ -3,6 +3,7 @@ import styles from '../styles/LastTweet.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 import TweetMessage from './TweetMessage';
 import { removeLikedTweet, addLikedTweet, setLikedTweet } from '../reducers/users'
+import FETCH_URL from '../config'
 
 function LastTweets() {
   const dispatch = useDispatch();
@@ -13,17 +14,40 @@ function LastTweets() {
   const [newTweet, setNewTweet] = useState('')
 
   useEffect(() => {
-    fetch('https://hackatweet-five.vercel.app/tweets/all')
+    fetch(`${FETCH_URL}/tweets/all`)
       .then(resp => resp.json())
       .then(data => {
         setAllTweets(data.allTweets)
       })
-    fetch('https://hackatweet-five.vercel.app/users/myLikedTweets')
-      .then(resp => resp.json())
+    fetch(`${FETCH_URL}/users/myLikedTweets`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        username: user.username
+      })
+    }).then(resp => resp.json())
       .then(data => {
         dispatch(setLikedTweet(data.liked))
       })
   }, [])
+
+  const removeTweet = (tweetId) => {
+    fetch(`${FETCH_URL}/tweets/removeTweet`, {
+      method: 'DELETE',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        id: tweetId
+      })
+    }).then(resp => resp.json())
+      .then(data => {
+        console.log(data.result)
+        fetch(`${FETCH_URL}/tweets/all`)
+          .then(resp => resp.json())
+          .then(data => {
+            setAllTweets(data.allTweets)
+          })
+      })
+  }
 
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
@@ -35,11 +59,11 @@ function LastTweets() {
     if (allTweets[i].user.username === user.username) {
       isOwner = true
     }
-    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} isOwner={isOwner} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
+    tweetMessages.push(<TweetMessage removeTweet={removeTweet} id={allTweets[i]._id} date={allTweets[i].date} isOwner={isOwner} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
 
   const sendTweet = () => {
-    fetch('https://hackatweet-five.vercel.app/tweets/new', {
+    fetch(`${FETCH_URL}/tweets/new`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -48,7 +72,7 @@ function LastTweets() {
       })
     }).then(resp => resp.json())
       .then(data => {
-        fetch('https://hackatweet-five.vercel.app/tweets/all')
+        fetch(`${FETCH_URL}/tweets/all`)
           .then(resp => resp.json())
           .then(data => {
             setAllTweets(data.allTweets)

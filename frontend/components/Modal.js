@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addUserToStore } from '../reducers/users'
 import Modal from 'react-modal';
 import Image from 'next/image';
+import FETCH_URL from '../config';
 
 function ModalPopup(props) {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function ModalPopup(props) {
 
   const btnClicked = () => {
     if (props.isSignUp) {
-      fetch('https://hackatweet-five.vercel.app/users/new', {
+      fetch(`${FETCH_URL}/users/new`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
@@ -53,7 +54,7 @@ function ModalPopup(props) {
         })
     } else {
       btnTxt = 'Login'
-      fetch('https://hackatweet-five.vercel.app/users/login', {
+      fetch(`${FETCH_URL}/users/login`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({

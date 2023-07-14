@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from '../styles/LastTweet.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 import TweetMessage from './TweetMessage';
+import { removeLikedTweet, addLikedTweet, setLikedTweet } from '../reducers/users'
 
 function LastTweets() {
   const dispatch = useDispatch();
@@ -16,13 +17,19 @@ function LastTweets() {
       .then(resp => resp.json())
       .then(data => {
         setAllTweets(data.allTweets)
-        console.log(data.allTweets)
+        dispatch(setLikedTweet(data.allTweets[0].user.likedTweets))
       })
   }, [])
 
+  console.log('User liked tweets : ', user.likedTweets)
+
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
-    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={allTweets[i].isLiked} user={allTweets[i].user} key={i} />)
+    let liked = false;
+    if (user.likedTweets.includes(allTweets[i]._id)) {
+      liked = true;
+    }
+    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} likeNumber={allTweets[i].likeNumber} content={allTweets[i].content} isLiked={liked} user={allTweets[i].user} key={i} />)
   }
 
   return (

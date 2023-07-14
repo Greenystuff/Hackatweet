@@ -5,17 +5,19 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { removeLikedTweet, addLikedTweet } from '../reducers/users'
 
 function TweetMessage(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.users.value)
 
   const [isLiked, setIsLiked] = useState(false);
-  const [likeNumber, setLikeNumber] = useState(0)
+  const [likeNumber, setLikeNumber] = useState(0);
 
   useEffect(() => {
     setIsLiked(props.isLiked)
     setLikeNumber(props.likeNumber)
+
   }, [])
 
   let delai;
@@ -38,10 +40,12 @@ function TweetMessage(props) {
         isLiked: !isLiked
       })
     }).then(resp => resp.json())
-      .then(data => console.log(data.result))
+      .then(data => console.log('Fetch tweet liked : ', data.result))
     if (isLiked) {
+      dispatch(removeLikedTweet(props.id))
       setLikeNumber(likeNumber - 1)
     } else {
+      dispatch(addLikedTweet(props.id))
       setLikeNumber(likeNumber + 1)
     }
   }
@@ -52,8 +56,6 @@ function TweetMessage(props) {
   } else {
     props.likeNumber - 1
   }
-
-  console.log(customStyle)
 
   return (
     <div className={styles.tweetContainer}>

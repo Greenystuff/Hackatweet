@@ -5,6 +5,7 @@ const initialState = {
   value: {
     firstname: '',
     username: '',
+    likedTweets: [],
     token: ''
   },
 };
@@ -19,6 +20,15 @@ export const usersSlice = createSlice({
       state.value.username = action.payload.username;
       state.value.token = action.payload.token;
     },
+    setLikedTweet: (state, action) => {
+      state.value.likedTweets = action.payload;
+    },
+    addLikedTweet: (state, action) => {
+      state.value.likedTweets.push(action.payload);
+    },
+    removeLikedTweet: (state, action) => {
+      state.value.likedTweets = state.value.likedTweets.filter(id => id !== action.payload)
+    },
     deleteUser: (state) => {
       state.value = {
         firstname: '',
@@ -29,5 +39,5 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addUserToStore, deleteUser } = usersSlice.actions;
+export const { addUserToStore, setLikedTweet, addLikedTweet, removeLikedTweet, deleteUser } = usersSlice.actions;
 export default usersSlice.reducer;

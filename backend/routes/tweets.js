@@ -43,15 +43,16 @@ router.get('/all', (req, res) => {
       result: true,
       allTweets
     })
-    console.log(allTweets)
   })
 })
 
 router.patch('/like', (req, res) => {
   User.findOne({ username: req.body.username })
     .then(userFound => {
+
       if (!userFound.likedTweets.includes(req.body.id)) {
-        User.updateOne({ username: req.body.username }, { likedTweets: userFound.likedTweets.push(req.body.id) })
+        userFound.likedTweets.push(req.body.id)
+        User.updateOne({ username: req.body.username }, { likedTweets: userFound.likedTweets })
           .then((data => {
             Tweet.findById(req.body.id).then(tweet => {
               let newLikedNumber = 0
@@ -65,7 +66,8 @@ router.patch('/like', (req, res) => {
             })
           }))
       } else {
-        User.updateOne({ username: req.body.username }, { likedTweets: userFound.likedTweets.map(id => id !== req.body.id) })
+        let newTab = userFound.likedTweets.filter(id => id !== req.body.id);
+        User.updateOne({ username: req.body.username }, { likedTweets: newTab })
           .then((data => {
             Tweet.findById(req.body.id).then(tweet => {
               let newLikedNumber = 0

@@ -65,7 +65,6 @@ function ModalPopup(props) {
         .then(resp => resp.json())
         .then(data => {
           if (data.result) {
-            console.log(data)
             dispatch(addUserToStore(data))
             setFirstname('');
             setUsername('');

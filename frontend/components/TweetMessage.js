@@ -57,7 +57,6 @@ function TweetMessage(props) {
   } else {
     props.likeNumber - 1
   }
-  console.log(props)
   const trash = props.isOwner ? <div className={styles.trashContainer}>
     <FontAwesomeIcon onClick={() => props.removeTweet(props.id)} icon={faTrashCan} style={{ color: "#ffffff", }} />
   </div> : <></>

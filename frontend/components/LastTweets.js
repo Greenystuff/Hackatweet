@@ -40,7 +40,6 @@ function LastTweets() {
       })
     }).then(resp => resp.json())
       .then(data => {
-        console.log(data.result)
         fetch(`${FETCH_URL}/tweets/all`)
           .then(resp => resp.json())
           .then(data => {

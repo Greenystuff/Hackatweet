@@ -16,12 +16,13 @@ function LastTweets() {
       .then(resp => resp.json())
       .then(data => {
         setAllTweets(data.allTweets)
+        console.log(data.allTweets)
       })
   }, [])
 
   const tweetMessages = [];
   for (let i = 0; i < allTweets.length; i++) {
-    tweetMessages.push(<TweetMessage date={allTweets[i].date} content={allTweets[i].content} isLiked={allTweets[i].isLiked} user={allTweets[i].user} key={i} />)
+    tweetMessages.push(<TweetMessage id={allTweets[i]._id} date={allTweets[i].date} content={allTweets[i].content} isLiked={allTweets[i].isLiked} user={allTweets[i].user} key={i} />)
   }
 
   return (
